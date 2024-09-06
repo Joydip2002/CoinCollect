@@ -11,13 +11,15 @@ const styles2={
 const Sidebar = () => {
     const location = useLocation();
     // console.log(location.pathname);
-    const [isOpen,setOpen] = useState(false);
-    
+    const [isOpen,setOpen] = useState(true);
+    const toggleSidebar=()=>{
+        setOpen(!isOpen);
+    }
   return (
     <>
-        {!isOpen? 
-            <div className="sidebar-container">
-                <div className="" style={{position:'absolute',display:'flex',justifyContent:'end'}}>
+        {/* {isOpen?  */}
+        <div className="sidebar-container" style={{ width: isOpen ? '300px' : '60px' }}>
+                <div className="cross-sidebar-icon" onClick={toggleSidebar}>
                     <RxCrossCircled />
                 </div>
                 <div className="dashboard-logo">
@@ -27,38 +29,38 @@ const Sidebar = () => {
                     <Link to='/' style={{textDecoration:'none',color: '#000'}}>
                         <div className={`sidebar-list-flex ${location.pathname=='/'?'active':''}`} >
                             <DashboardIcon/>
-                            <div>
+                            {isOpen? <div>
                                 Dashboard
-                            </div>
+                            </div>:''}
                         </div>
                     </Link>
                     <Link to='/transactions' style={{textDecoration:'none',color: '#000'}}>
                         <div className={`sidebar-list-flex ${location.pathname=='/transactions'?'active':''}`}>
                             <TransactionIcon/>
-                            <div className="nav-list">Transactions</div>
+                            {isOpen? <div className="nav-list">Transactions</div>:''}
                         </div>
                     </Link>
                     <Link to='/report' style={{textDecoration:'none',color: '#000'}}>
                         <div className={`sidebar-list-flex ${location.pathname=='/report'?'active':''}`}>
                             <ReportIcon/>
-                            <div className="nav-list">Report</div>
+                            {isOpen? <div className="nav-list">Report</div>:''}
                         </div>
                     </Link>
                     <Link to='/settings' style={{textDecoration:'none',color: '#000'}}>
                         <div className={`sidebar-list-flex ${location.pathname=='/settings'?'active':''}`}>
                             <SettingIcon />
-                            <div className="nav-list">Settings</div>
+                            {isOpen? <div className="nav-list">Settings</div>:''}
                         </div>
                     </Link>
                     <Link to='/help' style={{textDecoration:'none',color: '#000'}}>
                     <div className={`sidebar-list-flex ${location.pathname=='/help'?'active':''}`}>
                         <HelpIcon/>
-                        <div className="nav-list">Help</div>
+                        {isOpen? <div className="nav-list">Help</div>:''}
                     </div>
                     </Link>
                 </div>
             </div>
-        :''}
+        {/* :''} */}
     </>
   )
 }
