@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom"
-import { DashboardIcon, HelpIcon, ReportIcon, SettingIcon, TransactionIcon } from "../../icons/Icons"
+import { ChevronIcon, DashboardIcon, HelpIcon, ReportIcon, SettingIcon, TransactionIcon } from "../../icons/Icons"
 import logo from '../../assets/image-38.jpg';
 import { useState } from "react";
 import { RxCrossCircled } from "react-icons/rx";
@@ -20,7 +20,7 @@ const Sidebar = () => {
         {/* {isOpen?  */}
         <div className="sidebar-container" style={{ width: isOpen ? '300px' : '60px' }}>
                 <div className="cross-sidebar-icon" onClick={toggleSidebar}>
-                    <RxCrossCircled />
+                    {isOpen?<RxCrossCircled />:<ChevronIcon/>}
                 </div>
                 <div className="dashboard-logo">
                     <img src={logo} alt="" width={50} height={50}/>

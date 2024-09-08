@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
+import Transaction_table from './Transaction_table';
+import Button from './Button';
 
 const Dashboard = () => {
   const chartRef = useRef(null);
@@ -39,7 +41,7 @@ const Dashboard = () => {
     ];
     // Create the chart
     chartRef.current = new Chart(canvasRef.current, {
-      type: 'doughnut',
+      type: 'bar',
       data: {
         labels: ['Expense','Income','Total Money'],
         datasets: [
@@ -68,7 +70,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="dashboard_container">
+    <div className="dashboard_container dashboard_scrollable">
       <div className="dashboard_card_content">
         <div className="dashboard_card">
           <div className="card">
@@ -76,136 +78,27 @@ const Dashboard = () => {
             <h2>RP 10000</h2>
           </div>
           <div className="card">
-            <p>Total Monthly Income</p>
+            <p>Total Month's Income</p>
             <h2>RP 25000</h2>
           </div>
           <div className="card">
-            <p>Total Expense</p>
+            <p>Expenses this month</p>
             <h2>RP 15000</h2>
           </div>
         </div>
       </div>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
-        <div style={{ marginTop:"10px",borderRadius:'10px',background:'#fff',width: " ", height: "350px" }}>
-          <canvas ref={canvasRef} id="acquisitions"></canvas>
+      <div>
+        <div style={{ marginTop:"10px",padding:'10px',borderRadius:'10px',background:'#fff',}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'ceneter'}}>
+            <p style={{fontSize:'20px',color:'#263238',fontWeight:'500'}}>Spending Report</p>
+             <Button type="enable" text="View Report" visibility="visible"/>
+          </div>
+          <div style={{height: "350px" }}>
+            <canvas ref={canvasRef} id="acquisitions"></canvas>
+          </div>
         </div>
-        <div>
-        <div className="tansaction-table" style={{ maxHeight:"350px",marginTop:"10px",overflow:'auto'}}>
-            <h4>Transaction History</h4>
-            {/* <DataTable columns={columns} data={data} /> */}
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Tansactions</th>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                     
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-        </div>
+        <div style={{marginTop:'10px'}}>
+          <Transaction_table/>
         </div>
       </div>
     </div>

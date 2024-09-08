@@ -1,19 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 :root{
     --dark-background:#000;
     --light-background:#fff;
-    --sidebar-background:rgb(255, 255, 255);
+    --sidebar-background:#EFF4FF;
     --text-color:#fff;
-    --text-color2:#000;
+    --text-color2:#263238;
     --list-nav-color:#00397a;
 }
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* font-family: 'Courier New', Courier, monospace; */
-    font-family: serif;
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    /* font-weight: <weight>; */
+    font-style: normal;
 }
 body{
     background: var(--dark-background);
@@ -28,13 +30,10 @@ body{
 .sidebar-container{
     min-height: 100vh;
     background: var(--sidebar-background);
-    /* margin: 10px; */
     border-radius: 0 10px 10px 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 .sidebar-list-flex{
     display: flex;
@@ -57,10 +56,10 @@ body{
     color: #00397a;
 }
 .sidebar-list-flex.active{
-    border: 1px solid rgb(132, 206, 255);
+    border: 2px solid #236EFF;
     cursor: pointer;
-    color: #00397a;
-    background-color: #f3f3f3;
+    color: #236EFF;
+    /* background-color: #f3f3f3; */
 }
 .cross-sidebar-icon{
     display:flex;
@@ -83,6 +82,14 @@ body{
     color: var(--text-color);
     /* background:linear-gradient(90deg, #000, #ddd); */
 }
+.dashboard_scrollable{
+    max-height: 100vh;
+    overflow: auto;
+
+}
+/* .transaction_container{
+    width: 100%;
+} */
 .dashborad_card_content{
     width: 100%;
     min-height: 100vh;
@@ -101,8 +108,8 @@ body{
 .card{
     display: flex;
     flex-direction: column;
-    /* gap: 10px; */
-    padding: 10px 10px;
+    gap: 10px;
+    padding: 20px;
     width: 300px;
     height: 100px;
     /* width: 30%; */
@@ -111,23 +118,175 @@ body{
     background-color: var(--light-background);
 }
 .dashboard_card .card:nth-child(2){
-    background: aqua;
+    background: #00CFE8;
+    color: #fff;
 }
-table{
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
     width: 100%;
 }
-table th,td,tr{
-    padding:10px;
+
+td,th {
+    /* border: 1px solid #dddddd; */
+    text-align: left;
+    padding: 8px;
 }
+
+th{
+    font-weight: normal;
+    opacity: .9;
+}
+td{
+    font-size: 14px;
+    opacity: .5;
+}
+
+/* tr:nth-child(even) {
+    background-color: #dddddd;
+  } */
 .tansaction-table{
     /* width: 50%; */
     padding: 10px;
     background:var(--light-background);
     color: var(--text-color2);
     border-radius: 10px;
-    -webkit-scrolling: none;
 }
 .tansaction-table::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
 }
+button{
+    border-radius: 5px;
+    background-color: #236EFF;
+    color: #fff;
+    /* padding: 5px 10px; */
+    border: none;
+    cursor: pointer;
+}
+.add_transaction_section{
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    /* position: sticky;
+    top: 0; */
+}
 /* dashboard container */
+
+/* tansaction card  */
+.tcard_container{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 10px 20px;
+    gap: 20px;
+    /* background-color: var(--light-background); */
+    max-width: max-content;
+    border-radius: 10px;
+    /* color: red; */
+    /* background-color: #fae4da; */
+    margin: 10px 0;
+}
+.tcard img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.today_transactions_card{
+    cursor: pointer;
+    /* animation: scrolling 20s linear infinite; */
+}
+@keyframes scrolling {
+    to{
+        transform: translateX(-100%);
+    }
+    from{
+        transform: translateX(100%);
+    }
+}
+.today_transactions_card::-webkit-scrollbar { 
+    /* display: none;   */
+}
+/* tansaction card  */
+
+
+/* add transaction modal design */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dimmed background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  h2 {
+    margin-top: 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 10px;
+  }
+  
+  input, select, textarea {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  input[type="radio"]{
+    display: none;
+  }
+  .transaction_type{
+    padding: 5px 15px;
+    /* background-color: #ccc; */
+    /* border-radius: 4px; */
+    border: 1px solid #00397a;
+  }
+  label.active{
+    background-color: #236EFF;
+    color: #fff;
+  }
+/* add transaction modal design */

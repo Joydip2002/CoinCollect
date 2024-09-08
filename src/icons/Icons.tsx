@@ -1,8 +1,9 @@
 import { MdSpaceDashboard } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 import { TbReportSearch } from "react-icons/tb";
-import { IoSettingsSharp } from "react-icons/io5";
+import { IoChevronForwardCircleOutline, IoSettingsSharp } from "react-icons/io5";
 import { IoIosHelpCircle } from "react-icons/io";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const DashboardIcon=()=>{
     return(
@@ -39,4 +40,21 @@ const HelpIcon=()=>{
         </>
     )
 }
-export {DashboardIcon,TransactionIcon,ReportIcon,SettingIcon,HelpIcon};
+const ChevronIcon=()=>{
+    return(
+        <>
+            <IoChevronForwardCircleOutline />
+        </>
+    )
+}
+const UpArrow=()=>{
+    return(
+        <FaArrowUp />
+    )
+}
+const DownArrow=()=>{
+    return(
+        <FaArrowDown />
+    )
+}
+export {DashboardIcon,TransactionIcon,ReportIcon,SettingIcon,HelpIcon,ChevronIcon,UpArrow,DownArrow};
