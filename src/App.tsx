@@ -5,6 +5,9 @@ import Transaction from "./components/pages/Transaction";
 import Report from "./components/pages/Report";
 import Help from "./components/pages/Help";
 import Settings from "./components/pages/Settings";
+import Signin from "./components/pages/auth/Signin";
+import Signup from "./components/pages/auth/Signup";
+import NotFound from "./components/pages/NotFound";
 
 const styles={
   display:'flex'
@@ -21,8 +24,16 @@ const App=()=>{
       </>
     )
   };
-
+  
   const router=createBrowserRouter([
+    {
+      path:'/login',
+      element:<Signin/>
+    },
+    {
+      path:'/register',
+      element:<Signup/>
+    },
     {
       path:'/',
       element:<Layout/>,
@@ -48,6 +59,10 @@ const App=()=>{
           element:<Settings/>
         }
       ]
+    },
+    {
+      path:'/*',
+      element:<NotFound/>
     }
   ]);
 

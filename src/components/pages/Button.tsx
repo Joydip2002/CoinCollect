@@ -17,7 +17,7 @@ const Button = (props:button) => {
     {props.visibility=="visible"?
       <div>
         <button  disabled={props.type!=="enable"} onClick={openModal}>{props.text}</button>
-        <AddTransaction isOpen={isOpen} onClose={onClose}/>
+        {props.text!="View Report"?<AddTransaction isOpen={isOpen} onClose={onClose}/>:''}
       </div>
       :''
     }

@@ -31,10 +31,10 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
     }
 
     if (!isOpen) return null;
-
+    const animate=isOpen?'addAnimate':'';
     return (
         <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-content animate" onClick={e => e.stopPropagation()}>
                 <button className="close-button" onClick={onClose}>&times;</button>
                 <h2>Add Transaction</h2>
                 <form onSubmit={formSubmit}>
@@ -52,13 +52,13 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
                         Amount:
                         <input type="number" name="amount" value={data.amount} required onChange={handleClick}/>
                     </label>
-                    {/* <label>
-                        Type:
+                    <label>
+                        Category:
                         <select name="category" required>
-                            <option value="income">Income</option>
-                            <option value="expense">Expense</option>
+                            <option value="food">Food</option>
+                            <option value="expense">Icecream</option>
                         </select>
-                    </label> */}
+                    </label>
                     <label>
                         Description:
                         <textarea name="description" value={data.description} onChange={handleClick}/>

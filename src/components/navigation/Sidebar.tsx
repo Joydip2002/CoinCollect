@@ -23,7 +23,7 @@ const Sidebar = () => {
                     {isOpen?<RxCrossCircled />:<ChevronIcon/>}
                 </div>
                 <div className="dashboard-logo">
-                    <img src={logo} alt="" width={50} height={50}/>
+                    <img src={logo} alt="" width={50} height={50} style={{borderRadius:'50%'}}/>
                 </div>
                 <div>
                     <Link to='/' style={{textDecoration:'none',color: '#000'}}>

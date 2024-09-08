@@ -203,9 +203,9 @@ button{
         transform: translateX(100%);
     }
 }
-.today_transactions_card::-webkit-scrollbar { 
-    /* display: none;   */
-}
+/* .today_transactions_card::-webkit-scrollbar { 
+    display: none;  
+} */
 /* tansaction card  */
 
 
@@ -284,9 +284,21 @@ button{
     /* background-color: #ccc; */
     /* border-radius: 4px; */
     border: 1px solid #00397a;
+    cursor: pointer;
   }
   label.active{
     background-color: #236EFF;
     color: #fff;
   }
 /* add transaction modal design */
+
+
+/* signup */
+.signup-form input{
+    width: 100%;
+}
+.signup-label{
+    margin: 0px !important;
+    margin-top: 2px !important;
+}
+/* signup */

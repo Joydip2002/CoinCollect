@@ -22,7 +22,7 @@ const TransactionCard = (props:tansactionCard) => {
             :''
           }
         </div>
-        <div style={{display:'flex',justifyContent:'center',
+        <div style={{background:'white',padding:'5px', borderRadius:'10px',display:'flex',justifyContent:'center',
           alignItems:'center',gap:'4px'
         }}>
           <p>{props.type=="income"?'+':'-'}{props.amount}</p>
