@@ -301,4 +301,12 @@ button{
     margin: 0px !important;
     margin-top: 2px !important;
 }
+p[role="alert"]{
+    color: red;
+    font-size: 12px;
+}
+.required::after {
+    content:"*";
+    color: red;
+  }
 /* signup */

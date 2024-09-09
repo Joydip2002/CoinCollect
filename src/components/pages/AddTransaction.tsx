@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { addTransactionModal } from "../../interface/interface";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
     const [isSelect, selectedType] = useState<string>('income');
     const [data,setData]= useState({
-        ptype:'income',
+        user_id:3,
+        type:'income',
         amount:'',
         description:''
     });
     const handleClick = (e) => {
-        if(e.target.name=="ptype"){
+        if(e.target.name=="type"){
             selectedType(e.target.value);
         }
         // setData({...data,[e.target.name]:e.target.value});
@@ -18,16 +21,33 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
             [e.target.name]:e.target.value
         }))
     }
-    const formSubmit=(e)=>{
-        e.preventDefault();
-        setData({
-            ptype:'income',
-            amount:'',
-            description:''
-        })
-        console.log('====================================');
+    const formSubmit=async(e)=>{
         console.log(data);
-        console.log('====================================');
+        e.preventDefault();
+        try{
+            // const transaction=await fetch("https://e1c9-103-250-109-246.ngrok-free.app/addTansactions",{
+            //     method:'post',
+            //     headers:{
+            //         'Content-Type' : 'application/json'
+            //     },
+            //     body:JSON.stringify(data)
+            // });
+            const addtransaction=await axios.post("https://e1c9-103-250-109-246.ngrok-free.app/addTansactions",data);
+            console.log(addtransaction.data);
+            if(addtransaction.data.status==200){
+                toast.success(addtransaction.data?.msg);
+                setData({
+                    type:'income',
+                    amount:'',
+                    description:'',
+                    user_id:3
+                })
+            }
+            onClose();
+        }catch (error) {
+            console.log(error);
+        }
+        
     }
 
     if (!isOpen) return null;
@@ -39,11 +59,11 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
                 <h2>Add Transaction</h2>
                 <form onSubmit={formSubmit}>
                     <div style={{margin:'15px 0'}}>
-                        <input type="radio" name="ptype" id="income" value="income" onChange={handleClick} />
+                        <input type="radio" name="type" id="income" value="income" onChange={handleClick} />
                         <label htmlFor="income" className={isSelect === 'income' ? 'active transaction_type' : ' transaction_type'}>
                             Income
                         </label>
-                        <input type="radio" name="ptype" id="expense" value="expense" onChange={handleClick} />
+                        <input type="radio" name="type" id="expense" value="expense" onChange={handleClick} />
                         <label htmlFor="expense" className={isSelect === 'expense' ? 'active transaction_type' : ' transaction_type'}>
                             Expense
                         </label>
@@ -54,9 +74,9 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
                     </label>
                     <label>
                         Category:
-                        <select name="category" required>
+                        <select name="category" required onChange={handleClick}>
                             <option value="food">Food</option>
-                            <option value="expense">Icecream</option>
+                            <option value="icecream">Icecream</option>
                         </select>
                     </label>
                     <label>

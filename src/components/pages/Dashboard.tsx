@@ -10,7 +10,7 @@ const Dashboard = () => {
   const columns = [
     {
       Header: 'ID',
-      accessor: 'id' // accessor is the key in the data
+      accessor: 'id' 
     },
     {
       Header: 'Name',
@@ -25,12 +25,10 @@ const Dashboard = () => {
   const data = [
     { id: 1, name: 'John Doe', age: 28 },
     { id: 2, name: 'Jane Smith', age: 34 },
-    // Add more data as needed
   ];
   
   useEffect(() => {
     if (chartRef.current) {
-      // Destroy the previous chart instance if it exists
       chartRef.current.destroy();
     }
     // Data for the chart
@@ -91,7 +89,7 @@ const Dashboard = () => {
         <div style={{ marginTop:"10px",padding:'10px',borderRadius:'10px',background:'#fff',}}>
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'ceneter'}}>
             <p style={{fontSize:'20px',color:'#263238',fontWeight:'500'}}>Spending Report</p>
-             <Button type="enable" text="View Report" visibility="visible"/>
+            <Button type="enable" text="View Report" visibility="visible"/>
           </div>
           <div style={{height: "350px" }}>
             <canvas ref={canvasRef} id="acquisitions"></canvas>
