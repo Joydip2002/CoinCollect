@@ -2,6 +2,7 @@ import { useState } from "react";
 import { addTransactionModal } from "../../interface/interface";
 import axios from "axios";
 import toast from "react-hot-toast";
+const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
     const [isSelect, selectedType] = useState<string>('income');
@@ -11,7 +12,9 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
         amount:'',
         description:''
     });
-    const handleClick = (e) => {
+    console.log(baseUrl);
+    
+    const handleClick = (e:React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.name=="type"){
             selectedType(e.target.value);
         }
@@ -21,7 +24,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
             [e.target.name]:e.target.value
         }))
     }
-    const formSubmit=async(e)=>{
+    const formSubmit=async(e:any)=>{
         console.log(data);
         e.preventDefault();
         try{
@@ -32,7 +35,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
             //     },
             //     body:JSON.stringify(data)
             // });
-            const addtransaction=await axios.post("https://e1c9-103-250-109-246.ngrok-free.app/addTansactions",data);
+            const addtransaction=await axios.post(`${baseUrl}/addTansactions`,data);
             console.log(addtransaction.data);
             if(addtransaction.data.status==200){
                 toast.success(addtransaction.data?.msg);

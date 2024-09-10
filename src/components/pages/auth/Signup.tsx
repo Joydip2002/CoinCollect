@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { signupInterface } from "../../../interface/interface";
+import { useDispatch } from "react-redux";
+import { signup } from "../../../slice/userSlice";
+// import axios from "axios";
+// const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const navigate=useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,6 +23,15 @@ const Signup = () => {
   });
   const formSubmit = (data:signupInterface) => {
     console.log(data);
+    try{
+      // const register = await axios.post(`${baseUrl}/signup`,data);
+      const signupdatat = dispatch(signup(data));
+      // console.log(signupdatat);
+      navigate('/');
+      
+    }catch (error) {
+      
+    }
   };
   return (
     <>

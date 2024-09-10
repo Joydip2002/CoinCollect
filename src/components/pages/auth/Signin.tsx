@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { signinInterface } from "../../../interface/interface";
+const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const Signin = () => {
   const {
@@ -14,7 +15,8 @@ const Signin = () => {
     },
   });
   const onSubmit = (data:signinInterface) => {
-    console.log(data);
+    // console.log(data);
+
   };
   return (
     <>
