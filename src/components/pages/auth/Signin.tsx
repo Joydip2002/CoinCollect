@@ -1,9 +1,14 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signinInterface } from "../../../interface/interface";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { signin } from "../../../slice/userSlice";
 const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const Signin = () => {
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   const {
     register,
     handleSubmit,
@@ -14,9 +19,13 @@ const Signin = () => {
       password: "",
     },
   });
-  const onSubmit = (data:signinInterface) => {
+  const onSubmit = async (data:signinInterface) => {
     // console.log(data);
-
+    const response = await dispatch(signin(data));
+    if(response.payload?.data?.status==200){
+      localStorage.setItem('user',response.payload?.data?.data?.email);
+      navigate('/');
+    }
   };
   return (
     <>

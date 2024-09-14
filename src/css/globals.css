@@ -310,3 +310,34 @@ p[role="alert"]{
     color: red;
   }
 /* signup */
+
+.add-customer-btn:hover{
+    transform: scale(1.1);
+}
+.customer-add-btn-container{
+    transition: ease-in 0.2ms;
+}
+.add-customer-container{
+    background-color: #fff;
+    width:75% ;
+    padding: 20px;
+    border-radius: 10px;
+}
+.add-customer-container button{
+    margin-top: 10px;
+    float: right;
+    padding: 5px 30px;
+}
+.button-container:hover{
+    background-color: #00CFE8;
+}
+.add-customer-label{
+    color: var(--text-color2);
+}
+.customer-input-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* flex-wrap: wrap; */
+}

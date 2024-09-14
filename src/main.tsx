@@ -5,12 +5,15 @@ import './css/globals.css';
 import  { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { store } from './store.tsx';
+import { TransactionProvider } from './context/TransactionContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <Toaster/>
-      <App />
+      <TransactionProvider>
+        <App />
+      </TransactionProvider>
     </Provider>
   </StrictMode>,
 )

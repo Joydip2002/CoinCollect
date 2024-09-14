@@ -21,14 +21,15 @@ const Signup = () => {
       cpassword: "",
     },
   });
-  const formSubmit = (data:signupInterface) => {
-    console.log(data);
+  const formSubmit = async (data:signupInterface) => {
+    // console.log(data);
     try{
       // const register = await axios.post(`${baseUrl}/signup`,data);
-      const signupdatat = dispatch(signup(data));
-      // console.log(signupdatat);
-      navigate('/');
-      
+      const signupResponse = await dispatch(signup(data));
+      console.log("dtat => ",signupResponse);
+      if(signupResponse.payload.data?.status==200){
+        navigate('/login');
+      }
     }catch (error) {
       
     }

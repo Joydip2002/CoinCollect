@@ -2,51 +2,39 @@ import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import Transaction_table from './Transaction_table';
 import Button from './Button';
+import Signin from './auth/Signin';
+import { useNavigate } from 'react-router-dom';
+import { useTransactionApi } from '../../context/TransactionContext';
+import AddCustomer from './AddCustomer';
 
 const Dashboard = () => {
+  const navigate=useNavigate();
+  const {incomeExpense}=useTransactionApi();
+  const savingMoney = (incomeExpense.data?.details?.income - incomeExpense.data?.details?.expense);
+  const checksMoneyValue = savingMoney>0?savingMoney:0;
   const chartRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const columns = [
-    {
-      Header: 'ID',
-      accessor: 'id' 
-    },
-    {
-      Header: 'Name',
-      accessor: 'name'
-    },
-    {
-      Header: 'Age',
-      accessor: 'age'
-    }
-  ];
-  
-  const data = [
-    { id: 1, name: 'John Doe', age: 28 },
-    { id: 2, name: 'Jane Smith', age: 34 },
-  ];
-  
   useEffect(() => {
     if (chartRef.current) {
       chartRef.current.destroy();
     }
     // Data for the chart
     const data = [
-      { year: 2010, count: 25000 },
-      { year: 2011, count: 15000 },
-      { year: 2012, count: 10000 },
+      { count: checksMoneyValue },
+      { count: incomeExpense.data?.details?.income??0 },
+      { count: incomeExpense.data?.details?.expense??0 },
     ];
     // Create the chart
     chartRef.current = new Chart(canvasRef.current, {
       type: 'bar',
       data: {
-        labels: ['Expense','Income','Total Money'],
+        labels: ['Total Money','Income','Expense'],
         datasets: [
           {
             label: 'Acquisitions by month',
             data: data.map(row => row.count),
-             backgroundColor: ["#FB8282","#FEE69E","#9EFED4"],
+             backgroundColor: ["#9EFED4","#FEE69E","#FB8282"],
             // borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
           },
@@ -65,41 +53,44 @@ const Dashboard = () => {
         chartRef.current.destroy();
       }
     };
-  }, []);
+  }, [incomeExpense,checksMoneyValue]);
 
   return (
-    <div className="dashboard_container dashboard_scrollable">
-      <div className="dashboard_card_content">
-        <div className="dashboard_card">
-          <div className="card">
-            <p>Total Money</p>
-            <h2>RP 10000</h2>
+    <>
+      <div className="dashboard_container dashboard_scrollable">
+        <div className="dashboard_card_content">
+          <div className="dashboard_card">
+            <div className="card">
+              <p>Saving Money</p>
+              <h2>RP {checksMoneyValue??0}</h2>
+            </div>
+            <div className="card">
+              <p>Total Month's Income</p>
+              <h2>RP {incomeExpense.data?.details?.income ?? 0}</h2>
+            </div>
+            <div className="card">
+              <p>Expenses this month</p>
+              <h2>RP {incomeExpense.data?.details?.expense?? 0}</h2>
+            </div>
           </div>
-          <div className="card">
-            <p>Total Month's Income</p>
-            <h2>RP 25000</h2>
+        </div>
+        <div>
+          <div style={{ marginTop:"10px",padding:'10px',borderRadius:'10px',background:'#fff',}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'ceneter'}}>
+              <p style={{fontSize:'20px',color:'#263238',fontWeight:'500'}}>Spending Report</p>
+              <Button type="enable" text="View Report" visibility="visible"/>
+            </div>
+            <div style={{height: "350px" }}>
+              <canvas ref={canvasRef} id="acquisitions"></canvas>
+            </div>
           </div>
-          <div className="card">
-            <p>Expenses this month</p>
-            <h2>RP 15000</h2>
+          <div style={{marginTop:'10px'}}>
+            <Transaction_table/>
           </div>
         </div>
       </div>
-      <div>
-        <div style={{ marginTop:"10px",padding:'10px',borderRadius:'10px',background:'#fff',}}>
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'ceneter'}}>
-            <p style={{fontSize:'20px',color:'#263238',fontWeight:'500'}}>Spending Report</p>
-            <Button type="enable" text="View Report" visibility="visible"/>
-          </div>
-          <div style={{height: "350px" }}>
-            <canvas ref={canvasRef} id="acquisitions"></canvas>
-          </div>
-        </div>
-        <div style={{marginTop:'10px'}}>
-          <Transaction_table/>
-        </div>
-      </div>
-    </div>
+      {/* <AddCustomer/> */}
+    </>
   );
 };
 

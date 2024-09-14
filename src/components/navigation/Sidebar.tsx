@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router-dom"
-import { ChevronIcon, DashboardIcon, HelpIcon, ReportIcon, SettingIcon, TransactionIcon } from "../../icons/Icons"
+import { AddCategoryIcon, AddCustomerIcon, ChevronIcon, DashboardIcon, HelpIcon, ReportIcon, SettingIcon, TransactionIcon } from "../../icons/Icons"
 import logo from '../../assets/image-38.jpg';
 import { useState } from "react";
 import { RxCrossCircled } from "react-icons/rx";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 const styles2={
     position:'absolute'
@@ -10,17 +11,22 @@ const styles2={
 
 const Sidebar = () => {
     const location = useLocation();
-    // console.log(location.pathname);
-    const [isOpen,setOpen] = useState(true);
+    const width = useWindowWidth();
+    const [isOpen,setOpen] = useState(width>768?true:false);
     const toggleSidebar=()=>{
-        setOpen(!isOpen);
+        if(width>768){
+            setOpen(!isOpen);
+        }
     }
+    // if(!localStorage.getItem('user')){
+    //     return;
+    // }
   return (
     <>
         {/* {isOpen?  */}
         <div className="sidebar-container" style={{ width: isOpen ? '300px' : '60px' }}>
                 <div className="cross-sidebar-icon" onClick={toggleSidebar}>
-                    {isOpen?<RxCrossCircled />:<ChevronIcon/>}
+                    {width>768?isOpen?<RxCrossCircled />:<ChevronIcon/>:''}
                 </div>
                 <div className="dashboard-logo">
                     <img src={logo} alt="" width={50} height={50} style={{borderRadius:'50%'}}/>
@@ -38,6 +44,18 @@ const Sidebar = () => {
                         <div className={`sidebar-list-flex ${location.pathname=='/transactions'?'active':''}`}>
                             <TransactionIcon/>
                             {isOpen? <div className="nav-list">Transactions</div>:''}
+                        </div>
+                    </Link>
+                    <Link to='/addCustomer' style={{textDecoration:'none',color: '#000'}}>
+                        <div className={`sidebar-list-flex ${location.pathname=='/addCustomer'?'active':''}`}>
+                            <AddCustomerIcon/>
+                            {isOpen? <div className="nav-list">Add Customers</div>:''}
+                        </div>
+                    </Link>
+                    <Link to='/addCategory' style={{textDecoration:'none',color: '#000'}}>
+                        <div className={`sidebar-list-flex ${location.pathname=='/addCategory'?'active':''}`}>
+                            <AddCategoryIcon/>
+                            {isOpen? <div className="nav-list">Add Category</div>:''}
                         </div>
                     </Link>
                     <Link to='/report' style={{textDecoration:'none',color: '#000'}}>

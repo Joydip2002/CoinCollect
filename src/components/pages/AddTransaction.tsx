@@ -2,17 +2,20 @@ import { useState } from "react";
 import { addTransactionModal } from "../../interface/interface";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useTransactionApi } from "../../context/TransactionContext";
 const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
-    const [isSelect, selectedType] = useState<string>('income');
+    const userId = localStorage.getItem('userId')??0;
+    const {setRefresh} = useTransactionApi();
+    const [isSelect, selectedType] = useState<string>('expense');
     const [data,setData]= useState({
-        user_id:3,
-        type:'income',
+        user_id:userId,
+        type:'expense',
         amount:'',
         description:''
     });
-    console.log(baseUrl);
+    // console.log(baseUrl);
     
     const handleClick = (e:React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.name=="type"){
@@ -40,12 +43,13 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
             if(addtransaction.data.status==200){
                 toast.success(addtransaction.data?.msg);
                 setData({
-                    type:'income',
+                    type:'expense',
                     amount:'',
                     description:'',
-                    user_id:3
+                    user_id:userId
                 })
             }
+            setRefresh(true);
             onClose();
         }catch (error) {
             console.log(error);
