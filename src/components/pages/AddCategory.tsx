@@ -1,5 +1,9 @@
+import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io"
+const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
+
 
 const AddCategory = () => {
     const [category, setCategory] = useState({});
@@ -10,11 +14,22 @@ const AddCategory = () => {
             [e.target.name]:e.target.value
         }))
     }
-    const handleSubmit=(e:any)=>{
+    const handleSubmit=async(e:any)=>{
         e.preventDefault();
-        console.log('====================================');
-        console.log(category);
-        console.log('====================================');
+        // console.log('====================================');
+        // console.log(category);
+        // console.log('====================================');
+        const addCategory=await axios.post(`${baseUrl}/addCategory`,category,{
+            headers:{
+                'Content-Type':'application/json'
+            }
+        });
+        console.log(addCategory);
+        if(addCategory?.data?.status==200){
+            toast.success(addCategory?.data?.msg);
+        }else{
+            toast.error(addCategory.data?.msg);
+        }
     }
   return (
       <div className="dashboard_container">

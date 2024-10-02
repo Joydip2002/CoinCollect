@@ -14,7 +14,7 @@ export const TransactionProvider = ({ children }) => {
     if(userId > 0){
         const getTransactionList = async () => {
             try {
-                const response = await axios.get(`http://localhost:8089/fetchTransactions/${userId}`);
+                const response = await axios.get(`${baseUrl}/fetchTransactions/${userId}`);
                 if(response.data.status==200){
                     setTData(response.data);
                     setRefresh(false);
@@ -25,7 +25,7 @@ export const TransactionProvider = ({ children }) => {
         };
         const getIncomeExpenseData=async()=>{
             try {
-                const response = await axios.get(`http://localhost:8089/fetchIncomeExpenseDetails/${userId}`);
+                const response = await axios.get(`${baseUrl}/fetchIncomeExpenseDetails/${userId}`);
                 if(response.data?.data.status==200){
                     setIncomeExpense(response.data);
                     setRefresh(false);
@@ -36,7 +36,7 @@ export const TransactionProvider = ({ children }) => {
         }
         const todayTransactionDetails=async()=>{
             try {
-                const response = await axios.get(`http://localhost:8089/todayTransactionDetails/${userId}`);
+                const response = await axios.get(`${baseUrl}/todayTransactionDetails/${userId}`);
                 if(response.data?.data?.status==200){
                     setTodayTransaction(response.data?.data);
                     setRefresh(false);

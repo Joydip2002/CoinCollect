@@ -25,7 +25,7 @@ const Signup = () => {
     // console.log(data);
     try{
       // const register = await axios.post(`${baseUrl}/signup`,data);
-      const signupResponse = await dispatch(signup(data));
+      const signupResponse:any = await dispatch(signup(data));
       console.log("dtat => ",signupResponse);
       if(signupResponse.payload.data?.status==200){
         navigate('/login');

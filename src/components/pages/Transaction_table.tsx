@@ -18,6 +18,7 @@ const Transaction_table = () => {
                         <th>ID</th>
                         <th>Amount</th>
                         <th>Date</th>
+                        <th colSpan={2}>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,14 +26,18 @@ const Transaction_table = () => {
                         tdata.data?.length>0? 
                             tdata?.data?.map((data)=>{
                             return (
-                                <>
                                 <tr key={data?.id}>
                                     <td>{data?.description}</td>
                                     <td>{data?.id}</td>
                                     <td>{data?.amount}</td>
                                     <td>{new Date(data?.updatedAt).toLocaleDateString()} {new Date(data?.updatedAt).toLocaleTimeString()}</td>
+                                    <td>
+                                        <button>Delete</button>
+                                    </td>
+                                    <td>
+                                        <button>Edit</button>
+                                    </td>
                                 </tr>
-                                </>
                             )
                         })
                         :
