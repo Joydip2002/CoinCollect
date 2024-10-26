@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Button from "./Button";
+import { useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -45,7 +44,7 @@ const AddCustomer = () => {
                 <form action="" onSubmit={handleSubmit}>
                     <label htmlFor="" className="add-customer-label">Name of customer</label>
                     <div className="customer-input-container">
-                        <input type="text" name="customer" placeholder="Enter customer name" onChange={(e)=>setCustomer(e.target.value)}/>
+                        <input type="text" name="customer" placeholder="Enter customer name" onChange={(e:any)=>setCustomer(e.target.value)}/>
                     </div>
                     <div>
                         <button className="button-container" style={{display:'flex', border:'1px solid green',background:'#fff',color:'#000',justifyContent:'center',alignItems:'center',gap:'5px'}}>

@@ -3,7 +3,7 @@ import Transaction_table from "./Transaction_table";
 import TransactionCard from "./TransactionCard";
 
 const Transaction = () => {
-  const {todayTransaction} = useTransactionApi();
+  const {todayTransaction}:any = useTransactionApi();
   console.log('====================================');
   console.log(todayTransaction);
   console.log('====================================');

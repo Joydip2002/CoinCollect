@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { signinInterface } from "../../../interface/interface";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signin } from "../../../slice/userSlice";
-const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
+import { AppDispatch } from "../../../store";
+// const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const Signin = () => {
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
+  const dispatch=useDispatch<AppDispatch>();
   const {
     register,
     handleSubmit,
@@ -21,10 +20,11 @@ const Signin = () => {
   });
   const onSubmit = async (data:signinInterface) => {
     // console.log(data);
-    const response = await dispatch(signin(data));
+    const response = await dispatch(signin(data)) as any;
     if(response.payload?.data?.status==200){
       localStorage.setItem('user',response.payload?.data?.data?.email);
-      navigate('/');
+      // navigate('/');
+      window.location.href="/";
     }
   };
   return (

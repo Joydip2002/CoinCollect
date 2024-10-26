@@ -6,11 +6,11 @@ import { useTransactionApi } from "../../context/TransactionContext";
 const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
-    const userId = localStorage.getItem('userId') ?? 0;
-    const { setRefresh } = useTransactionApi();
+    const userId:string = localStorage.getItem('userId') ?? "";
+    const transactionApi = useTransactionApi();
     const [isSelect, selectedType] = useState<string>('expense');
-    const [customer, setCustomerList]=useState<string>();
-    const [category, setCategoryList]=useState<string>();
+    const [customer, setCustomerList]=useState<any>();
+    const [category, setCategoryList]=useState<any>();
     const [loading,setLoading]=useState<boolean>(false);
     
     const [data, setData] = useState({
@@ -21,7 +21,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
     });
     // console.log(baseUrl);
 
-    const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleClick = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         if (e.target.name == "type") {
             selectedType(e.target.value);
         }
@@ -55,7 +55,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
                 })
             }
             setLoading(false);
-            setRefresh(true);
+            transactionApi?.setRefresh(true);
             onClose();
         } catch (error) {
             console.log(error);
@@ -64,7 +64,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
     }
     const fetchCustomerList = async () => {
         try {
-            if(userId > 0) {
+            if(userId !="") {
                 // alert(userId);
                 const customerListData = await axios.get(`${baseUrl}/fetchCustomerList/${userId}`);
                 if(customerListData.status==200){
@@ -78,7 +78,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
     const fetchCategoryList=async()=>{
         try {
             const categoryListData=await axios.get(`${baseUrl}/fetchCategory`);
-            console.log("categoryListDat",categoryListData);
+            // console.log("categoryListDat",categoryListData);
             if(categoryListData.status==200){
                 setCategoryList(categoryListData.data);
             }      
@@ -91,7 +91,6 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
         fetchCategoryList();
     },[])
     if (!isOpen) return null;
-    const animate = isOpen ? 'addAnimate' : '';
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content animate" onClick={e => e.stopPropagation()}>
@@ -118,7 +117,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
                             <select name="customer_id" required onChange={handleClick}>
                                 <option value="#">--Select--</option>
                                 {
-                                        customer && customer.data?.map((d)=>(
+                                        customer && customer.data?.map((d:any)=>(
                                             <option value={d.id} key={d?.id}>{d?.name}</option>
                                         ))
                                 }
@@ -129,7 +128,7 @@ const AddTransaction = ({ isOpen, onClose }: addTransactionModal) => {
                             <select name="category_id" required onChange={handleClick}>
                                 <option value="#">--Select--</option>
                                 {
-                                        category && category.data?.map((d)=>(
+                                        category && category.data?.map((d:any)=>(
                                             <option value={d.id} key={d?.id}>{d?.name}</option>
                                         ))
                                 }

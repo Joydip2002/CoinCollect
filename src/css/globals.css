@@ -34,6 +34,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    justify-content: space-between;
 }
 .sidebar-list-flex{
     display: flex;

@@ -2,7 +2,7 @@ import { useTransactionApi } from "../../context/TransactionContext";
 import Button from "./Button"
 
 const Transaction_table = () => {
-    const {tdata} = useTransactionApi();
+    const { tdata }: { tdata: any } = useTransactionApi()!;
   return (
     <div>
         <div className="tansaction-table" style={{ maxHeight:"350px",overflow:'auto'}}>
@@ -18,25 +18,25 @@ const Transaction_table = () => {
                         <th>ID</th>
                         <th>Amount</th>
                         <th>Date</th>
-                        <th colSpan={2}>Action</th>
+                        {/* <th colSpan={2}>Action</th> */}
                     </tr>
                     </thead>
                     <tbody>
                     {
                         tdata.data?.length>0? 
-                            tdata?.data?.map((data)=>{
+                            tdata?.data?.map((data:any)=>{
                             return (
                                 <tr key={data?.id}>
                                     <td>{data?.description}</td>
                                     <td>{data?.id}</td>
                                     <td>{data?.amount}</td>
                                     <td>{new Date(data?.updatedAt).toLocaleDateString()} {new Date(data?.updatedAt).toLocaleTimeString()}</td>
-                                    <td>
+                                    {/* <td>
                                         <button>Delete</button>
                                     </td>
                                     <td>
                                         <button>Edit</button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             )
                         })

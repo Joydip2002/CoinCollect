@@ -3,11 +3,12 @@ import { useForm } from "react-hook-form";
 import { signupInterface } from "../../../interface/interface";
 import { useDispatch } from "react-redux";
 import { signup } from "../../../slice/userSlice";
+import { AppDispatch } from "../../../store";
 // import axios from "axios";
 // const baseUrl: string = import.meta.env.VITE_API_BASE_URL;
 
 const Signup = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate=useNavigate();
   const {
     register,

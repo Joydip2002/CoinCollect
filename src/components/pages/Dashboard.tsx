@@ -1,20 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import Transaction_table from './Transaction_table';
 import Button from './Button';
-import Signin from './auth/Signin';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useTransactionApi } from '../../context/TransactionContext';
-import AddCustomer from './AddCustomer';
-
 const Dashboard = () => {
-  const navigate=useNavigate();
-  const {incomeExpense}=useTransactionApi();
+  const {incomeExpense}:any=useTransactionApi();
   const savingMoney = (incomeExpense.data?.details?.income - incomeExpense.data?.details?.expense);
   const checksMoneyValue = savingMoney>0?savingMoney:0;
-  const chartRef = useRef(null);
-  const canvasRef = useRef(null);
-
+  const chartRef = useRef<Chart<'bar'> | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     if (chartRef.current) {
       chartRef.current.destroy();
@@ -26,7 +21,7 @@ const Dashboard = () => {
       { count: incomeExpense.data?.details?.expense??0 },
     ];
     // Create the chart
-    chartRef.current = new Chart(canvasRef.current, {
+    chartRef.current = new Chart(canvasRef.current!, {
       type: 'bar',
       data: {
         labels: ['Total Money','Income','Expense'],

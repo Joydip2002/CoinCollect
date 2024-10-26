@@ -32,9 +32,9 @@ const Settings = () => {
           <button onClick={toggleEditMode}>Edit mode</button>
         </div>
         <div className="profile-card">
-          <img src="" alt="" />
+          {/* <img src="" alt="" />
           <input type="text" />
-          <input type="text" />
+          <input type="text" /> */}
         </div>
       </div>
     </>
